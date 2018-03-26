@@ -1,0 +1,89 @@
+<div id="todo" [@fadeLeft]>
+  <div>
+    <h2 class="titulo">
+      Listado de Grupos
+    </h2>
+    <p id="parrafo">
+      A continuación podrá ver una lista con todos los grupos registrados en el sistema.
+    </p>
+  </div>
+  <div class="fondo text-center" *ngIf="grupos.length == 0"><i>No existen grupos registrados en el sistema hasta el momento.</i></div>
+  <div class="fondo" *ngIf="grupos.length != 0">
+    <div class="row">
+      <div class="col-md-12">Buscar:
+        <input type="text" [(ngModel)]="busqueda" class="separador-h">
+        Filtro:
+        <select class="btn btn-default" [(ngModel)]="datoB">
+          <option value="all">-- Seleccione --</option>
+          <option value="nombre" selected>Nombre</option>
+          <option value="anio">Año</option>
+          <option value="dia_semana">Día</option>
+          <option value="hora_inicio">Hora</option>
+        </select>
+        <br><br>
+        <div *ngIf="busqueda" class="label label-default">
+          Termino de búsqueda: {{busqueda}}
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="table-responsive">
+      <table class="table table-hover text-center">
+        <thead class="thead-default">
+          <tr>
+            <th role="button" (click)="ordenar('nombre')" class="text-center">Nombre
+              <span *ngIf="tipo == 'nombre' && desc" class="fa fa-caret-down"></span>
+              <span *ngIf="tipo == 'nombre' && !desc" class="fa fa-caret-up"></span>
+            </th>
+            <th role="button" (click)="ordenar('anio')" class="text-center">Año
+              <span *ngIf="tipo == 'anio' && desc" class="fa fa-caret-down"></span>
+              <span *ngIf="tipo == 'anio' && !desc" class="fa fa-caret-up"></span>
+            </th>
+            <th role="button" (click)="ordenar('dia_semana')" class="text-center">Día
+              <span *ngIf="tipo == 'dia_semana' && desc" class="fa fa-caret-down"></span>
+              <span *ngIf="tipo == 'dia_semana' && !desc" class="fa fa-caret-up"></span>
+            </th>
+            <th role="button" (click)="ordenar('hora_inicio')" class="text-center">Hora
+              <span *ngIf="tipo == 'hora_inicio' && desc" class="fa fa-caret-down"></span>
+              <span *ngIf="tipo == 'hora_inicio' && !desc" class="fa fa-caret-up"></span>
+            </th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i = index; let g of grupos | buscar: busqueda:datoB">
+            <td>{{g.nombre}}</td>
+            <td>{{g.anio}}</td>
+            <td>{{g.dia_semana}}</td>
+            <td>{{g.hora_inicio}}</td>
+            <td class="text-center">
+              <a class="btn btn-success btn-sm" [routerLink]="['../detalle-grupo/'+g._id]"><span class="glyphicon glyphicon-eye-open"> </span> Ver</a>
+              <a class="btn btn-primary btn-sm" [routerLink]="['../editar-grupo/'+g._id]"><span class="glyphicon glyphicon-pencil"> </span> Editar</a>
+              <!-- <a href="#myModal-{{g._id}}" role="button" class="btn btn-danger btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-trash"> </span> Eliminar</a> -->
+
+              <!-- Modal para Eliminar Alumno-->
+              <div class="modal fade" id="myModal-{{g._id}}" role="dialog" >
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">Eliminar Alumno</h4>
+                    </div>
+                    <div class="modal-body">
+                      ¿Realmente desea eliminar el Grupo <strong>{{g.nombre}}</strong>?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                      <button type="button" class="btn btn-danger" (click)="eliminar(g._id)" data-dismiss="modal">Eliminar Alumno</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

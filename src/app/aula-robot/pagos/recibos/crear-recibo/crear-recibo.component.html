@@ -1,0 +1,224 @@
+<div [@fadeLeft]>
+  <div>
+    <h2 class="titulo">
+      Generar Recibo
+    </h2>
+  </div>
+  <div>
+    <br>
+    <div class="fondo-form col-md-10 col-md-offset-1">
+      <form #formPago="ngForm" (ngSubmit)="generarVista()" class="">
+        <div id="selec-tipo" class="col-md-12 form-group">
+          <label>Seleccionar Tipo de Recibo</label>
+          <select class="btn btn-default" name="tipo" #tipo="ngModel" [(ngModel)]="recibo.tipo" required>
+            <option value="">--</option>
+            <option value="mensual">Cuota Mensual</option>
+            <option value="vacante">Reserva de Vacante</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+        <p *ngIf="recibo.tipo != ''" class="titulo-seccion">
+          Datos del Recibo
+        </p>
+        <div *ngIf="recibo.tipo != ''" class="col-md-6 form-group">
+          <label>Fecha</label>
+          <input class="form-control" type="date" name="fecha" #fecha="ngModel" [(ngModel)]="recibo.fecha" required>
+        </div>
+        <div *ngIf="recibo.tipo != ''" class="col-md-6 form-group">
+          <label>Monto</label>
+          <input class="form-control" type="text" name="monto" #monto="ngModel" [(ngModel)]="recibo.monto" required>
+        </div>
+        <div *ngIf="recibo.tipo != ''" class="col-md-12 form-group">
+          <label>Alumno</label>
+          <select class="btn btn-default form-control" name="alumno" #alumno="ngModel" [(ngModel)]="recibo.alumno" required>
+            <option *ngFor="let a of alumnos; let i = index" value="{{i}}">{{a.apellido}}, {{a.nombre}}</option>
+          </select>
+          <p *ngIf="recibo.alumno">{{recibo.alumno.apellido}} {{recibo.alumno.nombre}}</p>
+       </div>
+       <!-- VACANTE Y MENSUAL -->
+       <div *ngIf="recibo.tipo == 'mensual' || recibo.tipo == 'vacante'" class="col-md-4 form-group">
+         <label>Año</label>
+         <select class="btn btn-default form-control" name="anio" #anio="ngModel" [(ngModel)]="recibo.anio" required>
+           <option *ngFor="let a of anios" value="{{a}}">{{a}}</option>
+         </select>
+       </div>
+       <!-- SOLO OTROS -->
+       <div *ngIf="recibo.tipo == 'otro'" class="col-md-12 form-group">
+         <label>Descripción</label>
+         <input class="form-control" type="text" name="descripcion" #descripcion="ngModel" [(ngModel)]="recibo.descripcion" required>
+       </div>
+       <!-- SOLO MENSUAL -->
+       <div id="pad" class="col-md-12" *ngIf="recibo.tipo == 'mensual'">
+         <div class="col-md-4 form-group">
+           <label>Mes/es</label>
+           <select multiple class="btn btn-default form-control" name="mese" #mese="ngModel" [(ngModel)]="recibo.meses" required [disabled]="todos">
+             <option *ngFor="let m of meses"value="{{m}}">{{m}}</option>
+           </select>
+        </div>
+        <div *ngIf="recibo.tipo == 'mensual'" class="col-md-8 form-group">
+          <div class="checkbox">
+            <br>
+            <label class="separador">
+              <input id="check" type="checkbox" value="todos" name="tds" #tds="ngModel" [(ngModel)]="todos">Seleccionar Todos
+            </label>
+            <p class="errores"><i>Nota: para seleccionar varios meses mantener presionada la tecla Ctrl.</i></p>
+          </div>
+       </div>
+      </div>
+      <!-- SOLO VACANTE -->
+      <div *ngIf="recibo.tipo == 'vacante'" class="col-md-8 form-group">
+        <label>Grupo</label>
+        <input class="form-control" type="text" name="descripcion" #descripcion="ngModel" [(ngModel)]="recibo.descripcion" required>
+      </div>
+       <p class="separador"></p>
+       <div *ngIf="recibo.tipo != ''" class="col-md-12 separador">
+          <button *ngIf="generado" type="button" class="pull-right btn btn-danger" (click)="generado = !generado">Ocultar Vista Previa</button>
+          <button type="submit" class="pull-right btn btn-primary separador-h" [disabled]="!formPago.form.valid">
+            <span *ngIf="!generado">Mostrar Vista Previa</span>
+            <span *ngIf="generado">Actualizar</span>
+          </button>
+        </div>
+      </form>
+      <div *ngIf="generado"class="col-md-12">
+        <p class="titulo-seccion col-md-12">
+          Vista Previa
+        </p>
+        <div id="content" #content>
+          <div id="cabecera" class="col-md-12">
+            <div class="col-md-5 chiquito">
+              <p class="pull-right"><mark>N° {{reciboAux.nro}}</mark></p>
+              <img class="logo" src="assets/img/logoRecibo.png" alt="LOGO">
+              <br>
+              <div class="fecha pull-right">
+                <div>{{reciboAux.fecha | date:'dd'}}</div>
+                <div>{{reciboAux.fecha | date:'MM'}}</div>
+                <div>{{reciboAux.fecha | date:'yyyy'}}</div>
+              </div>
+            </div>
+            <div class="col-md-7 grande">
+              <p class="pull-right"><mark>N° {{reciboAux.nro}}</mark></p>
+              <img class="logo" src="assets/img/logoRecibo.png" alt="LOGO">
+              <br>
+              <div class="fecha pull-right">
+                <div>{{reciboAux.fecha | date:'dd'}}</div>
+                <div>{{reciboAux.fecha | date:'MM'}}</div>
+                <div>{{reciboAux.fecha | date:'yyyy'}}</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="formulario" class="col-md-12 separador">
+            <div class="col-md-5 chiquito">
+              <strong class="separador-h">Nombre:</strong>
+              <span>{{reciboAux.alumno.apellido.toUpperCase()}} {{reciboAux.alumno.nombre}}</span>
+              <hr>
+            </div>
+            <div class="col-md-7 grande">
+              <strong class="separador-h">Nombre:</strong>
+              <span>{{reciboAux.alumno.apellido.toUpperCase()}} {{reciboAux.alumno.nombre}}</span>
+              <hr>
+            </div>
+
+            <div *ngIf="recibo.tipo == 'mensual'">
+              <div  class="col-md-5 chiquito">
+                <strong class="separador-h">Grupo:</strong>
+                <span *ngIf="reciboAux.alumno.estado == 'Activo'">{{reciboAux.alumno.grupo}}</span>
+                <span *ngIf="reciboAux.alumno.estado == 'Inactivo'">Alumno Inactivo</span>
+                <hr>
+              </div>
+              <div class="col-md-7 grande">
+                <strong class="separador-h">Grupo:</strong>
+                <span *ngIf="reciboAux.alumno.estado == 'Activo'">{{reciboAux.alumno.grupo}}</span>
+                <span *ngIf="reciboAux.alumno.estado == 'Inactivo'">Alumno Inactivo</span>
+                <hr>
+              </div>
+              <div class="col-md-5 chiquito">
+                <strong>Mes/es:</strong>
+                <br>
+                <span *ngFor="let m of reciboAux.meses; last as isLast">
+                  {{m}}<span *ngIf="!isLast">, </span>
+                </span>
+                <hr>
+              </div>
+              <div class="col-md-7 grande">
+                <strong>Mes/es:</strong>
+                <br>
+                <div class="mG2">
+                  <span *ngFor="let m of reciboAux.meses; last as isLast">
+                    {{m}}<span *ngIf="!isLast">, </span>
+                  </span>
+                </div>
+                <hr>
+              </div>
+            </div>
+
+            <div *ngIf="recibo.tipo == 'vacante'">
+              <div class="col-md-5 chiquito">
+                <strong>Reserva Año:</strong>
+                <br>
+                <p>{{reciboAux.anio}}</p>
+                <hr>
+              </div>
+              <div class="col-md-7 grande">
+                <strong>Reserva de Vacante Año:</strong>
+                <br>
+                <p>{{reciboAux.anio}}</p>
+                <hr>
+              </div>
+              <div  class="col-md-5 chiquito">
+                <strong class="separador-h">Grupo:</strong>
+                <span>{{reciboAux.grupo}}</span>
+                <hr>
+              </div>
+              <div class="col-md-7 grande">
+                <strong class="separador-h">Grupo:</strong>
+                <span>{{reciboAux.grupo}}</span>
+                <hr>
+              </div>
+            </div>
+
+            <div id="pad" class="col-md-12" *ngIf="recibo.tipo == 'otro'">
+              <div class="col-md-5 chiquito">
+                <strong>Descripción:</strong>
+                <br>
+                <em><p id="monto-texto">{{reciboAux.descripcion}}</p></em>
+                <hr>
+              </div>
+              <div class="col-md-7 grande">
+                <strong>Descripción:</strong>
+                <div class="mG"><em><p id="monto-texto">{{reciboAux.descripcion}}</p></em></div>
+                <hr>
+              </div>
+            </div>
+
+            <div id="pad" class="col-md-12">
+              <div class="col-md-5 chiquito">
+                <strong>Recibí la cantidad de Pesos:</strong>
+                <br>
+                <em><p id="monto-texto" class="text-center">{{reciboAux.montoT}}</p></em>
+                <hr>
+              </div>
+              <div class="col-md-7 grande">
+                <strong>Recibí la cantidad de Pesos:</strong>
+                <div class="mG"><em><p id="monto-texto" class="text-center">{{reciboAux.montoT}}</p></em></div>
+                <hr>
+              </div>
+            </div>
+
+            <div class="col-md-5 chiquito">
+              <span id="monto"><strong>Son $ </strong> {{reciboAux.monto}}</span>
+              <br>
+              <span id="firma">Firma</span>
+            </div>
+            <div class="col-md-7 grande">
+              <span id="monto"><strong>Son $ </strong> {{reciboAux.monto}}</span>
+              <br>
+              <span id="firma">Firma</span>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="pull-right btn btn-success" (click)="generarRecibo()">Generar Recibo</button>
+      </div>
+    </div>
+  </div>
+</div>

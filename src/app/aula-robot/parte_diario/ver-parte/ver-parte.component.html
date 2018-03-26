@@ -1,0 +1,117 @@
+
+<div id ="content" class="col-lg-10 col-lg-offset-1">
+  <h2>Parte Diario</h2>
+  <form #formParteDiario="ngForm">
+    <table class="columnas">
+    <tr>
+        <td><label> Grupo: {{parte_diario.grupo}}</label></td>
+        <td><label> Fecha: {{parte_diario.fecha}}</label></td>
+    </tr>
+  </table>
+  <table class="columnas">
+    <tr *ngIf="parte_diario.instructores.length==0;else elseConInstructor">
+
+      <td><label> No hay instructor/a </label></td>
+      <td><label> Horario: {{parte_diario.horario}} </label></td>
+    </tr>
+    <ng-template #elseConInstructor>
+      <tr *ngIf="parte_diario.instructores.length==1;else elseInstructores">
+      <td>  <label> Instructor/a: </label>
+          <span *ngFor="let i of parte_diario.instructores"> {{i}} </span>
+      </td>
+      <td><label> Horario: {{parte_diario.horario}} </label></td>
+      </tr>
+    </ng-template>
+    <ng-template #elseInstructores>
+        <tr *ngIf="parte_diario.instructores.length>1">
+            <td> <label> Instructores: </label> </td>
+            <td style="padding:0px;margin:0px">
+              <ul style="padding:0px;margin:0px">
+                <br>
+              <li *ngFor="let i of parte_diario.instructores" style="background:transparent;text-align:left;padding:0px;margin:10px 0px">
+                {{i}}
+              </li>
+            </ul>
+            </td>
+            <td> <label> Horario: {{parte_diario.horario}} </label></td>
+        </tr>
+    </ng-template>
+    </table>
+  </form>
+</div> <!--/div>
+
+<div class="col-lg-10 col-lg-offset-2"-->
+<div class="col-lg-10 col-lg-offset-2">
+  <h3>Listado de alumnos:</h3>
+  <table class="lista">
+    <tr>
+      <th> N° </th>
+      <th> Nombre y Apellido </th>
+      <th> Tipo de Asistencia </th>
+    </tr>
+    <tr  *ngFor="let a of parte_diario.listado_alumnos;let i=index" tabindex="100">
+      <td> {{i+1}} </td>
+      <td>  <!-- denería cargar los alumnos para ese grupo-->
+       {{a.alumno.nombre}} {{a.alumno.apellido}}
+      </td>
+      <td>
+        {{a.asistencia}}
+      </td>
+    </tr>
+  </table>
+
+  <h3> Alumnos que recuperaron: </h3>
+<div *ngIf="parte_diario.listado_recuperan.length>0; else elseVacio">
+  <table class="lista" style="full-width:900px">
+    <tr>
+      <th> N° </th>
+      <th> Nombre y Apellido </th>
+      <th> Tipo de Asistencia </th>
+      <th> Fecha Ausencia </th>
+      <th> Grupo </th>
+    </tr>
+    <tr *ngFor="let a of parte_diario.listado_recuperan;let i=index" tabindex="100">  <!-- debería cargar los alumnos para ese grupo-->
+      <td> {{i+1}} </td>
+      <td>{{a.alumno.nombre}} {{a.alumno.apellido}}</td>
+      <td>
+        Presente
+      </td>
+      <td class="data-target">28/08/2018</td>
+      <td>Grupo {{i}}</td>
+
+    </tr>
+  </table>
+    <!-- Botón para agregar alumnos -->
+
+  </div>
+  <ng-template #elseVacio>
+    <div style="text-align:center">
+      <br>
+      <b> No hay alumnos cargados... </b>
+      <br>
+      <br>
+      <!-- Botón para agregar alumnos -->
+    <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bs-example-modal-lg"> Agregar alumno </button>
+    </div>
+  </ng-template>
+</div>
+
+  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+      <p> </p>
+      <p>  Ver listado de alumnos ... </p>
+        <ol>
+          <li *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11,12]">
+            Alumno {{i}}
+            <button type="button" class="btn btn-sm btn-success" (click)="elegirAlumno(i)" data-dismiss="modal">
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"> Seleccionar </span>
+            </button>
+          </li>
+      </ol>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>

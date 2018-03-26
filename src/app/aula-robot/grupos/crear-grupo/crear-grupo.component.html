@@ -1,0 +1,126 @@
+<div [@fadeLeft]>
+  <div>
+    <h2 class="titulo">
+      Crear Nuevo Grupo
+    </h2>
+  </div>
+  <div>
+    <br>
+    <div class="fondo-form col-md-10 col-md-offset-1">
+      <form #formGrupo="ngForm" (ngSubmit)="crear()">
+        <p class="titulo-seccion">
+          Datos del Grupo
+        </p>
+        <div class="form-group col-md-6">
+          <label>Nombre: *</label>
+          <input type="text" class="form-control" name="nombre" #nombre="ngModel" [(ngModel)]="grupo.nombre" required>
+        </div>
+        <div class="form-group col-md-2 col-md-offset-2 separador">
+          <label>Año: *</label>
+          <select class="btn btn-default form-control" name="anio" #anio="ngModel" [(ngModel)]="grupo.anio">
+            <option value=0>--</option>
+            <option *ngFor="let a of anios" value={{a}}>{{a}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+          <label>Día: </label>
+          <select class="btn btn-default" name="dia" #dia="ngModel" [(ngModel)]="grupo.dia_semana">
+            <option value="">--</option>
+            <option *ngFor="let d of dias" value={{d}}>{{d}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+          <label>Hora Inicio: </label>
+          <select class="btn btn-default" name="horaI" #horaI="ngModel" [(ngModel)]="grupo.hora_inicio">
+            <option value=0>--</option>
+            <option *ngFor="let h of horas" value={{h}}>{{h}}</option>
+          </select>
+        </div>
+        <div class="form-group col-md-3 separador">
+          <label>Hora Fin: </label>
+          <select class="btn btn-default" name="horaF" #horaF="ngModel" [(ngModel)]="grupo.hora_fin">
+            <option value=0>--</option>
+            <option *ngFor="let h of horas" value={{h}}>{{h}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <div class="col-md-5 separador">
+            <label>Instructor/es: </label>
+            <select class="btn btn-default separador-h" name="instruc" #instruc="ngModel" [(ngModel)]="instructor">
+              <option value="">--</option>
+              <option *ngFor="let i of instructores; let in = index" value={{in}}>{{i.nombreUsuario}}</option>
+            </select>
+            <button type="button" (click)="addInstructor()" class="btn btn-default" [disabled]="instructor == ''">
+              <span class="glyphicon glyphicon-plus"></span> Agregar
+            </button>
+          </div>
+          <div class="col-md-7">
+            <div *ngFor="let instruc of instructoresAux; let in = index;">
+              {{instruc.nombreUsuario}} <span class="errores glyphicon glyphicon-remove" (click)="borrarInstructor(in)"></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 form-group separador">
+          <div>
+            <label>Alumnos Inscriptos: </label>
+            <select class="btn btn-default separador-h" name="alumnito" #alumnito="ngModel" [(ngModel)]="alumno">
+              <option value="">--</option>
+              <option *ngFor="let a of alumnos; let in = index" value={{in}}>{{a.apellido}} {{a.nombre}}</option>
+            </select>
+            <button type="button" (click)="addAlumno()" class="btn btn-default" [disabled]="alumno == ''">
+              <span class="glyphicon glyphicon-plus"></span> Agregar
+            </button>
+          </div>
+          <br>
+          <div *ngIf="alumnosAux.length != 0">
+            <div class="table-responsive">
+              <table class="table table-hover text-center">
+                <thead class="thead-default">
+                  <tr>
+                    <th role="button" class="text-center">DNI</th>
+                    <th role="button" class="text-center">Nombre</th>
+                    <th role="button" class="text-center">Apellido</th>
+                    <th class="text-center"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let i = index; let a of alumnosAux">
+                    <td>{{a.dni}}</td>
+                    <td>{{a.nombre}}</td>
+                    <td>{{a.apellido}}</td>
+                    <td class="text-center">
+                      <a href="#myModal-{{a.dni}}" role="button" class="btn btn-danger btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-trash"> </span> Eliminar</a>
+
+                      <!-- Modal para Eliminar Alumno-->
+                      <div class="modal fade" id="myModal-{{a.dni}}" role="dialog" >
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <h4 class="modal-title" id="myModalLabel">Eliminar Alumno</h4>
+                            </div>
+                            <div class="modal-body">
+                              ¿Realmente desea eliminar al Alumno <strong>{{a.nombre}} {{a.apellido}}</strong>  de este Grupo?
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                              <button type="button" class="btn btn-danger" (click)="borrarAlumno(i)" data-dismiss="modal">Eliminar Alumno</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <span class="errores">Los campos con * son obligatorios.</span>
+          <button type="submit" class="btn btn-success pull-right" [disabled]="!formGrupo.form.valid || grupo.anio==0">Crear Grupo</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

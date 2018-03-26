@@ -1,0 +1,21 @@
+<div *ngIf="error_token==0" class="jumbotron text-center col-md-8 col-md-offset-2">
+  <h1>ERROR 404</h1>
+  <p>Página Inexistente.</p>
+  <br>
+  <a [routerLink]="['/main-panel']">Volver al Inicio</a>
+</div>
+
+<div *ngIf="error_token==1" class="jumbotron text-center col-md-8 col-md-offset-2">
+  <h1>ERROR 500</h1>
+  <p>La sesión ha expirado. Por favor, ingrese nuevamente sus datos.</p>
+  <br>
+  <!-- <login></login> -->
+  <a [routerLink]="['/login']">Ingresar</a>
+</div>
+
+<div *ngIf="error_token==2" class="jumbotron text-center col-md-8 col-md-offset-2">
+  <h1>ERROR 503</h1>
+  <p>No se logró establecer conexión con la Base de Datos. <br>Por favor comunicarse con el desarrollador.</p>
+  <br>
+  <a [routerLink]="['/login']">Reintentar</a>
+</div>

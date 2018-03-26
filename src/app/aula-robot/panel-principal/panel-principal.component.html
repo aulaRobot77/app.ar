@@ -1,0 +1,121 @@
+<div *ngIf="minimizar=='false'" id="tareas" class="col-md-2" role="tablist" aria-multiselectable="false">
+  <ul class="list-group">
+    <li [routerLinkActive]="['activado']" [routerLink]="['bienvenida']" class="item-list" role="button">
+      <i class="fa fa-home" aria-hidden="true"></i> Inicio
+    </li>
+
+    <li class="item-list collapsed" role="button" data-toggle="collapse" data-parent="#tareas" href="#collapseAlumno" aria-expanded="false" aria-controls="collapseAlumno">
+      <span class="glyphicon glyphicon-education"></span> Alumnos
+      <span class="glyphicon glyphicon-menu-down flecha"></span>
+    </li>
+    <div id="collapseAlumno" class="panel-collapse collapse">
+      <ul class="list-group">
+        <li [routerLinkActive]="['activado']" [routerLink]="['crear-alumno']" class="subitem-list"><span class="glyphicon glyphicon-menu-right"></span> Crear Alumno</li>
+        <li [routerLinkActive]="['activado']" [routerLink]="['ver-alumnos']" class="subitem-list"><span class="glyphicon glyphicon-menu-right"></span> Ver Alumnos</li>
+      </ul>
+    </div>
+
+    <li class="item-list collapsed" role="button" data-toggle="collapse" data-parent="#tareas" href="#collapseGrupo" aria-expanded="false" aria-controls="collapseGrupo">
+      <i class="fa fa-users" aria-hidden="true"> </i>  Grupos
+      <span class="glyphicon glyphicon-menu-down flecha"></span>
+    </li>
+    <div id="collapseGrupo" class="panel-collapse collapse">
+      <ul class="list-group">
+        <li [routerLinkActive]="['activado']" [routerLink]="['crear-grupo']" class="subitem-list"><span class="glyphicon glyphicon-menu-right"></span> Crear Grupo</li>
+        <li [routerLinkActive]="['activado']" [routerLink]="['ver-grupos']" class="subitem-list"><span class="glyphicon glyphicon-menu-right"></span> Ver Grupos</li>
+      </ul>
+    </div>
+
+    <li class="item-list collapsed" role="button" data-toggle="collapse" data-parent="#tareas" href="#collapseNivel" aria-expanded="false" aria-controls="collapseNivel">
+      <i class="fa fa-signal" aria-hidden="true"> </i>  Niveles
+      <span class="glyphicon glyphicon-menu-down flecha"></span>
+    </li>
+    <div id="collapseNivel" class="panel-collapse collapse">
+      <ul class="list-group">
+        <li [routerLinkActive]="['activado']" [routerLink]="['alumnos']" class="subitem-list"><span class="glyphicon glyphicon-menu-right"></span> Crear Nivel</li>
+        <li [routerLinkActive]="['activado']" [routerLink]="['parte-diario']" class="subitem-list"><span class="glyphicon glyphicon-menu-right"></span> Ver Niveles</li>
+      </ul>
+    </div>
+
+    <li class="item-list collapsed" role="button" data-toggle="collapse" data-parent="#tareas" href="#collapseParte" aria-expanded="false" aria-controls="collapseParte">
+      <i class="fa fa-file-text-o" aria-hidden="true"> </i> Parte Diario
+      <span class="glyphicon glyphicon-menu-down flecha"></span>
+    </li>
+    <div id="collapseParte" class="panel-collapse collapse">
+      <ul class="list-group">
+        <li [routerLinkActive]="['activado']" [routerLink]="['parte_diario']" class="subitem-list"><span class="glyphicon glyphicon-menu-right"></span> Crear Parte</li>
+        <li [routerLinkActive]="['activado']" [routerLink]="['ver-partes']" class="subitem-list"><span class="glyphicon glyphicon-menu-right"></span> Ver Partes</li>
+      </ul>
+    </div>
+
+    <li [routerLinkActive]="['activado']" [routerLink]="['asistencia']" class="item-list" role="button">
+      <i class="fa fa-calendar" aria-hidden="true"></i> Asistencia Anual
+    </li>
+
+    <li [routerLinkActive]="['activado']" [routerLink]="['recuperacion']" class="item-list collapsed" role="button">
+      <span class="glyphicon glyphicon-refresh"></span> Lista de Recuperación
+    </li>
+
+    <li class="item-list collapsed" role="button" data-toggle="collapse" data-parent="#tareas" href="#collapsePagos" aria-expanded="false" aria-controls="collapsePagos">
+      <span class="glyphicon glyphicon-usd"></span> Pagos
+      <span class="glyphicon glyphicon-menu-down flecha"></span>
+    </li>
+    <div id="collapsePagos" class="panel-collapse collapse">
+      <ul class="list-group">
+        <li [routerLinkActive]="['activado']" [routerLink]="['pago']" class="subitem-list"><span class="glyphicon glyphicon-menu-right"></span> Cuota Mensual</li>
+        <li [routerLinkActive]="['activado']" [routerLink]="['reserva-vacante']" class="subitem-list"><span class="glyphicon glyphicon-menu-right"></span> Reserva de Vacante</li>
+        <li [routerLinkActive]="['activado']" [routerLink]="['crear-recibo']" class="subitem-list"><span class="glyphicon glyphicon-menu-right"></span> Generar Recibo</li>
+      </ul>
+    </div>
+
+    <li class="item-list collapsed" role="button" data-toggle="collapse" data-parent="#tareas" href="#collapseUsuarios" aria-expanded="false" aria-controls="collapseUsuarios">
+      <span class="glyphicon glyphicon-user"></span> Usuarios
+      <span class="glyphicon glyphicon-menu-down flecha"></span>
+    </li>
+    <div id="collapseUsuarios" class="panel-collapse collapse">
+      <ul class="list-group">
+        <li [routerLinkActive]="['activado']" [routerLink]="['user-panel/crearusuario']" class="subitem-list"><span class="glyphicon glyphicon-menu-right"></span> Crear Usuario </li>
+        <li [routerLinkActive]="['activado']" [routerLink]="['user-panel/verusuarios']" class="subitem-list"><span class="glyphicon glyphicon-menu-right"></span> Ver Usuarios </li>
+      </ul>
+    </div>
+  </ul>
+</div>
+
+<div [ngClass]="{ 'fondo': minimizar=='false', 'col-md-10': minimizar=='false',
+                  'fondo-min': minimizar=='true', 'col-md-12': minimizar=='true'}">
+  <div [ngClass]="{'mini-div': minimizar == 'true'}">
+    <ul *ngIf="minimizar=='true'" id="mini-list">
+      <li [routerLinkActive]="['activado-mini']" [routerLink]="['bienvenida']" role="button">
+        <i class="fa fa-home" aria-hidden="true"></i>
+      </li>
+      <li role="button">
+        <span class="glyphicon glyphicon-education"></span> Alumnos
+      </li>
+      <li role="button">
+        <i class="fa fa-users" aria-hidden="true"> </i> Grupos
+      </li>
+      <li role="button">
+        <i class="fa fa-signal" aria-hidden="true"> </i> Niveles
+      </li>
+      <li role="button">
+        <i class="fa fa-file-text-o" aria-hidden="true"> </i> Partes Diarios
+      </li>
+      <li [routerLinkActive]="['activado-mini']" [routerLink]="['asistencia']" role="button">
+        <i class="fa fa-calendar" aria-hidden="true"></i> Asistencia Anual
+      </li>
+      <li [routerLinkActive]="['activado-mini']" [routerLink]="['recuperacion']" role="button">
+        <span class="glyphicon glyphicon-refresh"></span> Recuperación
+      </li>
+      <li role="button">
+        <span class="glyphicon glyphicon-usd"></span> Pagos
+      </li>
+      <li role="button">
+        <span class="glyphicon glyphicon-user"></span> Usuarios
+      </li>
+    </ul>
+  </div>
+  <br>
+  <div [ngClass]="{'fondo-router': minimizar=='true'}">
+    <router-outlet></router-outlet>
+  </div>
+</div>

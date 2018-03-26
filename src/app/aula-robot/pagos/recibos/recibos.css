@@ -1,0 +1,140 @@
+.titulo{
+  font-variant: small-caps;
+  font-weight: bold;
+  text-align: center;
+}
+.fondo-form{
+  border-radius: 6px;
+  background: #f7bc8e;
+  padding: 15px;
+  color: #444;
+}
+.separador{
+  margin-bottom: 20px;
+}
+.separador-h{
+  margin-right: 10px !important;
+}
+.fondo{
+  border-radius: 6px;
+  background: #f7bc8e;
+  padding: 15px;
+  color: #444;
+}
+#parrafo{
+  margin: 30px;
+}
+.detalle-form{
+  min-height: 41px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  margin-bottom: 0;
+  background-color: #ffe3c4;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 2;
+  color: #222;
+  border-bottom: 1px solid #aaa;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  transition: #ccc ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.titulo-seccion{
+  font-weight: 700;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid #666;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+#selec-tipo{
+  text-align: center;
+  margin-top: 10px !important;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+#selec-tipo label{
+  font-variant: small-caps;
+}
+#content{
+  padding: 0px;
+}
+#cabecera{
+  border: 1px solid black;
+  border-bottom: 1px solid transparent;
+  margin-bottom: -1px;
+  background-color: white;
+  padding: 0px
+}
+#cabecera .chiquito, #cabecera .grande{
+  padding-bottom: 15px;
+}
+#formulario{
+  border: 1px solid black;
+  background-color: white;
+  padding: 0px;
+}
+#formulario hr{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 0;
+  border-top: 1px solid black;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+.logo{
+  width: 70px;
+  margin-bottom: -25px;
+}
+mark{
+  background-color: #d0d0d0
+}
+.chiquito{
+  border-right: 1px solid #111;
+  padding: 10px 10px 0px 10px;
+}
+.grande{
+  padding: 10px 10px 0px 10px;
+}
+#pad{
+  padding: 0px !important
+}
+.mG{
+  max-width: 366px !important;
+  margin: auto;
+}
+.mG2{
+  max-width: 357px !important;
+  margin: auto;
+}
+.fecha{
+  display: inline;
+}
+.fecha div{
+  margin-right: 3px;
+  border: 1px solid black;
+  border-radius: 3px;
+  -webkit-box-shadow: 2px -2px 0px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px -2px 0px 0px rgba(0,0,0,0.75);
+  box-shadow: 2px -2px 0px 0px rgba(0,0,0,0.75);
+  padding: 10px;
+  display: inline;
+}
+#firma{
+  float: right;
+  margin-right: 20px;
+  border-top: 1px dashed black;
+}
+#monto{
+  font-size: 16px;
+}
+#monto-texto{
+  margin-top: 5px;
+}
+#monto-texto:first-letter {
+    text-transform: uppercase;
+}
+#check{
+  margin-top: 0px !important;
+}

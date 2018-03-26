@@ -1,0 +1,229 @@
+h3{
+  padding-top: 20px;
+  padding-bottom: 0;
+  margin-top: 30px;
+  margin-bottom: 0;
+  font-size: 20px;
+
+}
+
+#content{
+  /*border:1px solid #fb7803;*/
+  border-radius: 6px;
+  background:#f7bc8e;
+  text-align: center;
+  font-family:serif;
+  text-emphasis-style:none;
+  align-content: center;
+}
+
+#content h2{
+    padding: 20px;
+    margin-top: 50px;
+    line-height: 20px;
+    font-size: 30px;
+    text-align: center;
+}
+#content p{
+  margin: 20px;
+  text-transform:full-width;
+}
+#content ngForm{
+  margin: 20px;
+}
+
+.columnas {
+  width: 45em;
+  align-content:center;
+  border-spacing: 3px;
+	border-collapse: separate;
+  left:0;
+  margin: 0.5em;
+  padding: 0.4em 0;
+  background:transparent !important;
+}
+
+.columnas tr{
+  padding: 1.4em 1em;
+  margin: 1.5em;
+}
+.columnas td{
+  padding: 0em;
+  margin: 0em;
+}
+
+.lista {
+  margin: 1.0em 5.5em;
+  padding: 0.4em 0;
+  width: 45em;
+  background:transparent;
+  align-content: center;
+  border-spacing: 3px;
+	border-collapse: separate;
+}
+.lista td, li {
+  cursor: pointer;
+  position: relative;
+  left:0;
+  background-color: #EEE;
+  margin: 0.5em;
+  padding: 0.4em 0;
+  height: 1.8em;
+  border-radius: 4px;
+}
+.lista tr{
+  border: transparent 5px solid;
+  border-spacing: 1px;
+  border-collapse: separate;
+}
+.lista tr:hover td:nth-of-type(1n) {
+  color: #95260f;
+  background-color: #e8ded5;
+  left: .1em;
+}
+.lista th{
+  background-color: #f7bc8e;
+}
+.lista .text {
+  position:relative;
+  top: 3px;
+  text-align:center;
+}
+.lista .badge {
+  display: inline-block;
+  font-size: normal;
+  color: white;
+  padding: 0.8em 0.7em 0 0.7em;
+  /*background-color: #607D8B;*/
+  line-height: 1em;
+  position: relative;
+  left: -1px;
+  top: -4px;
+  height: 1.8em;
+  margin-right: .8em;
+  border-radius: 4px 0 0 4px;
+}
+
+
+
+/* ===== Horizontal Rule ===== */
+
+/*.rule {
+  margin: 10px 0;
+  border: none;
+  height: 1.5px;
+  background-image: linear-gradient(to left, #f0f0f0, #c9bbae, #f0f0f0);
+}*/
+
+/* ===== Select Box ===== */
+.sel {
+  font-size: 1.5rem;
+  display: inline-block;
+  margin: 1em 1em;
+  width: 250px;
+  background-color: #e8ded5;
+  position: relative;
+  cursor: pointer;
+}
+
+.sel::before {
+  position: absolute;
+  content: '\f063';
+  font-family: 'FontAwesome';
+  font-size: 2em;
+  color: #FFF;
+  right: 20px;
+  top: calc(50% - 0.5em);
+}
+
+.sel.active::before {
+  transform: rotateX(-180deg);
+}
+
+.sel__placeholder {
+  display: block;
+  font-family: 'Quicksand';
+  font-size: 2.3em;
+  color: #838e95;
+  padding: 0.2em 0.5em;
+  text-align: left;
+  pointer-events: none;
+  user-select: none;
+  visibility: visible;
+}
+
+.sel.active .sel__placeholder {
+  visibility: hidden;
+}
+
+.sel__placeholder::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.2em 0.5em;
+  content: attr(data-placeholder);
+  visibility: hidden;
+  background-color: white;
+}
+
+.sel.active .sel__placeholder::before {
+  visibility: visible;
+}
+
+.sel__box {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: -4px;
+  display: none;
+  list-style-type: none;
+  text-align: left;
+  font-size: 1em;
+  background-color: #FFF;
+  width: calc(100% + 8px);
+  box-sizing: border-box;
+}
+
+.sel.active .sel__box {
+  display: block;
+  animation: fadeInUp 500ms;
+}
+
+.sel__box__options {
+  display: list-item;
+  font-family: 'Quicksand';
+  font-size: 1.5em;
+  color: #838e95;
+  padding: 0.5em 1em;
+  user-select: none;
+}
+
+.sel__box__options::after {
+  content: '\f00c';
+  font-family: 'FontAwesome';
+  font-size: 0.5em;
+  margin-left: 5px;
+  display: none;
+}
+
+.sel__box__options.selected::after {
+  display: inline;
+}
+
+.sel__box__options:hover {
+  background-color: #efeceb;
+}
+
+.select_asist {
+  border-style:none;
+  display: inline-block;
+  width: 100%;
+  background-color: transparent;
+  position: relative;
+  cursor: pointer;
+}
+
+.sellesct_asist__box__options:hover {
+  background-color: #efeceb;
+}

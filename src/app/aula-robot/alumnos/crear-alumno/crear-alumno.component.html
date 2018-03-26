@@ -1,0 +1,223 @@
+<div [@fadeLeft]>
+  <div>
+    <h2 class="titulo">
+      Crear Nuevo Alumno
+    </h2>
+  </div>
+  <div>
+    <br>
+    <div class="fondo-form col-md-10 col-md-offset-1">
+      <form #formAlumno="ngForm" (ngSubmit)="crear()">
+        <p class="titulo-seccion">
+          Datos Personales
+          <span *ngIf="miniDatos" (click)="miniDatos=!miniDatos" class="glyphicon glyphicon-plus pull-right"></span>
+          <span *ngIf="!miniDatos" (click)="miniDatos=!miniDatos" class="glyphicon glyphicon-minus pull-right"></span>
+        </p>
+        <div *ngIf="!miniDatos" class="form-group col-md-6">
+          <label>DNI *</label>
+          <input type="text" class="form-control" name="dni" #dni="ngModel" [(ngModel)]="alumno.dni" required>
+        </div>
+        <div *ngIf="!miniDatos" class="form-group col-md-6">
+          <label>Fecha de Nacimiento *</label>
+          <input type="date" class="form-control" name="fechaNacimiento" #fechaNacimiento="ngModel" [(ngModel)]="alumno.fechaNacimiento" placeholder="dd/mm/aaaa" required>
+        </div>
+        <div *ngIf="!miniDatos" class="form-group col-md-6">
+          <label>Nombre *</label>
+          <input type="text" class="form-control" name="nombre" #nombre="ngModel" [(ngModel)]="alumno.nombre" required>
+        </div>
+        <div *ngIf="!miniDatos" class="form-group col-md-6">
+          <label>Apellido *</label>
+          <input type="text" class="form-control" name="apellido" #apellido="ngModel" [(ngModel)]="alumno.apellido" required>
+        </div>
+        <div *ngIf="!miniDatos" class="form-group col-md-12">
+          <label>Domicilio *</label>
+          <input type="text" class="form-control" name="domicilio" #domicilio="ngModel" [(ngModel)]="alumno.domicilio" required>
+        </div>
+        <div *ngIf="!miniDatos" class="form-group col-md-8">
+          <label>Escuela a la que Asiste</label>
+          <input type="text" class="form-control" name="escuela" #escuela="ngModel" [(ngModel)]="alumno.escuela">
+        </div>
+        <div *ngIf="!miniDatos" class="form-group col-md-4">
+          <label>Grado</label>
+          <input type="text" class="form-control" name="grado" #grado="ngModel" [(ngModel)]="alumno.grado">
+        </div>
+        <div *ngIf="!miniDatos" class="form-group col-md-12">
+          <label>Horario Escolar</label>
+          <input type="text" class="form-control" name="horarioEscolar" #horarioEscolar="ngModel" [(ngModel)]="alumno.horarioEscolar">
+        </div>
+        <div *ngIf="!miniDatos" class="form-group col-md-12 separador">
+          <label>Horarios Libres</label>
+          <br>
+          <div class=" col-md-3">
+            <span>Día: </span>
+            <select class="btn btn-default" name="dia" #dia="ngModel" [(ngModel)]="diaLibre">
+              <option value="">--</option>
+              <option *ngFor="let d of dias" value={{d}}>{{d}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <span>Hora Inicio: </span>
+            <select class="btn btn-default" name="horaI" #horaI="ngModel" [(ngModel)]="horaILibre">
+              <option value=0>--</option>
+              <option *ngFor="let h of horas" value={{h}}>{{h}}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <span>Hora Fin: </span>
+            <select class="btn btn-default" name="horaF" #horaF="ngModel" [(ngModel)]="horaFLibre">
+              <option value=0>--</option>
+              <option *ngFor="let h of horas" value={{h}}>{{h}}</option>
+            </select>
+          </div>
+          <button type="button" (click)="addHorario()" class="btn btn-default col-md-3" [disabled]="verificarHorario()">
+            <span class="glyphicon glyphicon-plus"> </span> Agregar
+          </button>
+          <p class="text-center errores col-md-12" *ngIf="verificaHoras()">
+            El valor de Hora Inicio debe ser menor a Hora Fin.
+          </p>
+          <div class="col-md-12">
+            <p *ngFor="let h of alumno.horariosLibres; let i = index">
+              {{h.dia}} de {{h.horaI}}hs. a {{h.horaF}}hs. <span (click)="borrarHorario(i)" class="errores glyphicon glyphicon-remove"></span>
+            </p>
+          </div>
+        </div>
+        <p class="titulo-seccion">
+          Datos de los Padres
+          <span *ngIf="miniPadres" (click)="miniPadres=!miniPadres" class="glyphicon glyphicon-plus pull-right"></span>
+          <span *ngIf="!miniPadres" (click)="miniPadres=!miniPadres" class="glyphicon glyphicon-minus pull-right"></span>
+        </p>
+        <div *ngIf="!miniPadres" class="form-group col-md-8">
+          <label>Nombre de la Madre</label>
+          <input type="text" class="form-control" name="nombreMadre" #nombreMadre="ngModel" [(ngModel)]="alumno.nombreMadre">
+        </div>
+        <div *ngIf="!miniPadres" class="form-group col-md-4">
+          <label>Tel/Cel de la Madre</label>
+          <input type="text" class="form-control" name="telMadre" #telMadre="ngModel" [(ngModel)]="alumno.telMadre">
+        </div>
+        <div *ngIf="!miniPadres" class="form-group col-md-6">
+          <label>Email de la Madre</label>
+          <input type="text" class="form-control" name="emailMadre" #emailMadre="ngModel" [(ngModel)]="alumno.emailMadre">
+        </div>
+        <div *ngIf="!miniPadres" class="form-group col-md-6">
+          <label>Profesión y Ocupación de la Madre</label>
+          <input type="text" class="form-control" name="profesionMadre" #profesionMadre="ngModel" [(ngModel)]="alumno.profesionMadre">
+        </div>
+        <div *ngIf="!miniPadres" class="form-group col-md-8">
+          <label>Nombre del Padre</label>
+          <input type="text" class="form-control" name="nombrePadre" #nombrePadre="ngModel" [(ngModel)]="alumno.nombrePadre">
+        </div>
+        <div *ngIf="!miniPadres" class="form-group col-md-4">
+          <label>Tel/Cel del Padre</label>
+          <input type="text" class="form-control" name="telPadre" #telPadre="ngModel" [(ngModel)]="alumno.telPadre">
+        </div>
+        <div *ngIf="!miniPadres" class="form-group col-md-6">
+          <label>Email del Padre</label>
+          <input type="text" class="form-control" name="emailPadre" #emailPadre="ngModel" [(ngModel)]="alumno.emailPadre">
+        </div>
+        <div *ngIf="!miniPadres" class="form-group col-md-6 separador">
+          <label>Profesión y Ocupación del Padre</label>
+          <input type="text" class="form-control" name="profesionPadre" #profesionPadre="ngModel" [(ngModel)]="alumno.profesionPadre">
+        </div>
+        <p class="titulo-seccion">
+          Otros Datos de Contacto
+          <span *ngIf="miniOtros" (click)="miniOtros=!miniOtros" class="glyphicon glyphicon-plus pull-right"></span>
+          <span *ngIf="!miniOtros" (click)="miniOtros=!miniOtros" class="glyphicon glyphicon-minus pull-right"></span>
+        </p>
+        <div *ngIf="!miniOtros" class="form-group col-md-12">
+          <label>Otros Teléfonos de Emergencia</label>
+          <input type="text" class="form-control" name="telefonos" #telefonos="ngModel" [(ngModel)]="alumno.telefonos">
+        </div>
+        <div *ngIf="!miniOtros" class="form-group col-md-12">
+          <label>Acotaciones de la Familia</label>
+          <textarea type="text" class="form-control" name="acotaciones" #acotaciones="ngModel" [(ngModel)]="alumno.acotaciones"></textarea>
+        </div>
+        <div *ngIf="!miniOtros" class="form-group col-md-12 separador">
+          <label>Observaciones</label>
+          <textarea type="text" class="form-control" name="observaciones" #observaciones="ngModel" [(ngModel)]="alumno.observaciones"></textarea>
+        </div>
+        <p class="titulo-seccion">
+          Datos de Cursado
+          <span *ngIf="miniAula" (click)="miniAula=!miniAula" class="glyphicon glyphicon-plus pull-right"></span>
+          <span *ngIf="!miniAula" (click)="miniAula=!miniAula" class="glyphicon glyphicon-minus pull-right"></span>
+        </p>
+        <div *ngIf="!miniAula" class="form-group col-md-12">
+          <label>Grupo Actual</label>
+          <select class="btn btn-default" name="grupo" #grupo="ngModel" [(ngModel)]="alumno.grupo">
+            <option value="">--</option>
+            <option *ngFor="let g of grupos" value={{g._id}}>{{g.nombre}}</option>
+          </select>
+        </div>
+        <div *ngIf="!miniAula" class="form-group col-md-4">
+          <label>Fecha Ingreso</label>
+          <input type="date" class="form-control" name="fechaIngreso" #fechaIngreso="ngModel" [(ngModel)]="alumno.fechaIngreso" placeholder="dd/mm/aaaa">
+        </div>
+        <div *ngIf="!miniAula" class="form-group col-md-4 col-md-offset-2">
+          <label>Fecha Finalización</label>
+          <input type="date" class="form-control" name="fechaFinalizacion" #fechaFinalizacion="ngModel" [(ngModel)]="alumno.fechaFinalizacion" placeholder="dd/mm/aaaa">
+        </div>
+        <div *ngIf="!miniAula" class="form-group col-md-12 separador">
+          <label>Niveles</label>
+          <br>
+          <div>
+            <div class="col-md-4">
+              <span>Nombre: </span>
+              <select class="btn btn-default" name="nombreN" #nombreN="ngModel" [(ngModel)]="nombreNivel">
+                <option value="">--</option>
+                <option *ngFor="let n of niveles" value={{n}}>{{n}}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-3">
+              <span>Estado: </span>
+              <select class="btn btn-default" name="estadoN" #estadoN="ngModel" [(ngModel)]="estadoNivel">
+                <option value="">--</option>
+                <option *ngFor="let e of estados" value={{e}}>{{e}}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-3">
+              <span>Año: </span>
+              <select class="btn btn-default" name="anioN" #anioN="ngModel" [(ngModel)]="anioNivel">
+                <option value="">--</option>
+                <option *ngFor="let a of anios" value={{a}}>{{a}}</option>
+              </select>
+            </div>
+            <button *ngIf="editando == -1" type="button" (click)="addNivel()" class="btn btn-default col-md-2" [disabled]="verificaNivel()">
+              <span class="glyphicon glyphicon-plus"> </span> Agregar
+            </button>
+            <button *ngIf="editando != -1" type="button" (click)="editarNivel()" class="btn btn-default col-md-2" [disabled]="verificaNivel()">
+              <span class="glyphicon glyphicon-pencil"> </span> Editar
+            </button>
+          </div>
+          <div class="table-responsive col-md-12">
+            <table *ngIf="alumno.niveles.length != 0" id="tNiveles" class="table text-center">
+              <thead class="thead-default">
+                <tr>
+                  <th *ngFor="let n of alumno.niveles; let i = index;" class="text-center">
+                    <span class="centrando">{{n.nivel}}</span>
+                    <span (click)="borrarNivel(i)" class="errores glyphicon glyphicon-remove pull-right"></span>
+                    <span (click)="cargaEditar(i)" class="glyphicon glyphicon-pencil pull-right  separador-h"></span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <td *ngFor="let m of alumno.niveles">
+                  <p [style.color]="m.estado == 'Completo' ? 'green' : m.estado == 'Incompleto' ? 'red' : 'black'">
+                    {{m.estado}}
+                  </p>
+                  <p>
+                    Año: {{m.anio}}
+                  </p>
+                </td>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div *ngIf="miniOtros" class="separador"></div>
+        <div class="col-md-12">
+          <span class="errores">Los campos con * son obligatorios.</span>
+          <button type="cancel" class="btn btn-danger pull-right" [routerLink]="['/main-panel/ver-alumnos']" >Cancelar</button>
+          <button type="submit" class="btn btn-success pull-right separador-h" [disabled]="!formAlumno.form.valid">Crear Alumno</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

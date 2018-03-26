@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+html, body {
+  height: 100%;
+  width: 100%;
+  background-color: #FC8500 !important;
+}
+h2{
+  margin-top: 0px !important;
+}
+.errores{
+  color:red;
+}

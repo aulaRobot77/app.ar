@@ -1,0 +1,15 @@
+<div>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <img class="logo" src="assets/img/logo.png" alt="LOGO">
+      </div>
+      <!-- <button (click)="setMinimizar()" class="mini glyphicon glyphicon-menu">mini</button> -->
+      <button (click)="logout()" type="button" class="btn btn-default pull-right navbar-btn navbar-right" *ngIf="logueado">
+        <span class="glyphicon glyphicon-log-out"> </span>
+        <span class="hidden-xs">Cerrar Sesión</span>
+      </button>
+    </div>
+  </nav>
+</div>
+<router-outlet></router-outlet>

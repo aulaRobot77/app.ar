@@ -1,0 +1,54 @@
+<h2>{{this.titulo}}</h2>
+
+<form #formUsuario="ngForm" (ngSubmit)="onSubmit(); formUsuario.reset();">
+<p>
+  <label>Nombre de Usuario: </label>
+  <input type = "text" name = "nombreUsuario" #nombreUsuario = "ngModel" [(ngModel)]="usuario.nombreUsuario" required pattern="[a-zA-Z0-9]+">*
+  <span *ngIf="nombreUsuario.touched && !nombreUsuario.valid"> Caracteres inválidos </span>
+</p>
+<p>
+  <label>Contraseña: </label>
+  <input type = "password" name = "contrasena2" #contrasena2 required>*
+</p>
+<p>
+  <label>Repita Contraseña: </label>
+  <input type = "password" name = "contrasena" #contrasena = "ngModel" [(ngModel)]="usuario.password" required>*
+  <span *ngIf="!contrasenasIguales(contrasena2.value)"> Las contraseñas no coinciden </span>
+</p>
+<p>
+  <label>Rol: </label>
+  <select name = "tipo" #tipo = "ngModel" [(ngModel)]="usuario.rol" required>
+    <option>Seleccione</option>
+    <option *ngFor="let t of tiposRol" value="{{t}}"> {{t}} </option>
+  </select>
+
+*</p>
+<div *ngIf="usuario.rol==='Instructor'">
+  <p>
+    <label>Nombre: </label>
+    <input type = "text" name = "nombre" #nombre = "ngModel" [(ngModel)]="usuario.nombre">
+  </p>
+  <p>
+    <label>Apellido: </label>
+    <input type = "text" name = "apellido" #apellido = "ngModel" [(ngModel)]="usuario.apellido">
+  </p>
+  <p>
+    <label>DNI: </label>
+    <input type = "text" name = "dni" #dni = "ngModel" [(ngModel)]="usuario.dni">
+  </p>
+  <p>
+    <label>Dirección: </label>
+    <input type = "text" name = "direccion" #direccion = "ngModel" [(ngModel)]="usuario.direccion">
+  </p>
+  <p>
+    <label>Teléfono: </label>
+    <input type = "text" name = "telefono" #telefono = "ngModel" [(ngModel)]="usuario.telefono">
+  </p>
+  <p>
+    <label>e-mail: </label>
+    <input type = "text" name = "email" #email = "ngModel" [(ngModel)]="usuario.email">
+  </p>
+</div>
+
+<input type="submit" value="Guardar" [disabled]="!formUsuario.form.valid || !contrasenasIguales(contrasena2.value) || tipo.value==='Seleccione'">
+</form>

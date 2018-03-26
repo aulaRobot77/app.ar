@@ -1,0 +1,13 @@
+<h2 class="titulo">
+  {{this.titulo}}
+</h2>
+<div class="fondo text-center" *ngIf="usuarios.length == 0"><i>No existen alumnos registrados en el sistema hasta el momento.</i></div>
+<div class="fondo" *ngIf="usuarios.length != 0">
+  <ul>
+    <li *ngFor="let u of usuarios;let i=index">
+      <b>{{u.nombreUsuario}}</b> - {{u.rol}}
+      <a [routerLink]="['/main-panel/user-panel/editarusuario',u.nombreUsuario]" class="btn">Modificar Usuario</a>
+      <button (click)="eliminarUsuario(i)">Eliminar Usuario</button>
+    </li>
+  </ul>
+</div>

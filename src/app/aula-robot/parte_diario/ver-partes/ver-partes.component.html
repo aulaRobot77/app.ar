@@ -1,0 +1,34 @@
+<h2> Listado de Partes Diarios: </h2>
+<!--table>thead>tr>th*6-->
+<table class="table table-hover" style="background:#f5f0d1;text-align:center !important">
+  <thead>
+    <tr>
+      <th scope="col">N°</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Grupo</th>
+      <th scope="col">Horario</th>
+      <th scope="col">Instructor/a</th>
+      <th scope="col" style="text-align:center">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of partes;let i=index" >
+      <th scope="row" style="text-align:center">{{i+1}}</th>
+      <td>{{p.fecha}}</td>
+      <td>{{p.grupo}}</td>
+      <td>{{p.horario}}</td>
+      <td>{{p.instructor}}</td>
+      <td>
+        <a [routerLink]="['/main-panel/ver-parte',p]" type="button" name="btn-ver" class="btn btn-sm btn-success">
+          <span class="glyphicon glyphicon-eye-open" aria-hidden="true"> Ver </span>
+        </a>
+        <button type="button" name="btn-editar" class="btn btn-sm btn-warning">
+          <span class="glyphicon glyphicon-pencil" aria-hidden="true"> Editar </span>
+        </button>
+        <button type="button" name="btn-eliminar" class="btn btn-sm btn-danger">
+          <span class="glyphicon glyphicon-trash" aria-hidden="true"> Eliminar </span>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

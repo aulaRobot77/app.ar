@@ -1,0 +1,78 @@
+<div [@fadeLeft]>
+  <div>
+    <h2 class="titulo">
+      Detalle del Grupo
+    </h2>
+  </div>
+  <div>
+    <br>
+    <div class="fondo-form col-md-10 col-md-offset-1">
+      <form #formGrupo="ngForm">
+        <p class="titulo-seccion">
+          Datos del Grupo
+        </p>
+        <div class="form-group col-md-6">
+          <label>Nombre: *</label>
+          <p class="detalle-form">{{grupo.nombre}}</p>
+        </div>
+        <div class="form-group col-md-2 col-md-offset-2 separador">
+          <label>Año: *</label>
+          <p class="detalle-form">{{grupo.anio}}</p>
+        </div>
+        <div class="form-group col-md-3">
+          <label>Día: </label>
+          <p class="detalle-form">{{grupo.dia_semana}}</p>
+        </div>
+        <div class="form-group col-md-3">
+          <label>Hora Inicio: </label>
+          <p class="detalle-form">{{grupo.hora_inicio}}</p>
+        </div>
+        <div class="form-group col-md-3 separador">
+          <label>Hora Fin: </label>
+          <p class="detalle-form">{{grupo.hora_fin}}</p>
+        </div>
+        <div class="form-group">
+          <div class="col-md-12 separador">
+            <label>Instructor/es: </label>
+            <div class="text-center" *ngIf="grupo.instructores.length == 0"><i>No existen instructores registrados en este Grupo hasta el momento.</i></div>
+            <ul>
+              <li *ngFor="let instruc of grupo.instructores; let in = index;">{{instruc.apellido}}, {{instruc.nombre}}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-12 form-group separador">
+          <div>
+            <label>Alumnos Inscriptos: </label>
+          </div>
+          <br>
+          <div class="text-center" *ngIf="grupo.cursan.length == 0"><i>No existen alumnos registrados en este Grupo hasta el momento.</i></div>
+          <div *ngIf="grupo.cursan.length != 0">
+            <div class="table-responsive">
+              <table class="table table-hover text-center">
+                <thead class="thead-default">
+                  <tr>
+                    <th class="text-center">DNI</th>
+                    <th class="text-center">Nombre</th>
+                    <th class="text-center">Apellido</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let i = index; let a of grupo.cursan">
+                    <td>{{a.dni}}</td>
+                    <td>{{a.nombre}}</td>
+                    <td>{{a.apellido}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <span class="errores">Los campos con * son obligatorios.</span>
+          <button type="button" class="btn btn-danger pull-right" [routerLink]="['/main-panel/ver-grupos']">Atrás</button>
+          <button type="button" class="btn btn-primary pull-right separador-h" [routerLink]="['/main-panel/editar-grupo/'+id]">Editar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

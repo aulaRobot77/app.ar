@@ -1,0 +1,18 @@
+nav{
+  margin-bottom: 0px;
+  padding-right: 10px;
+}
+.logCard{
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-top: 20px;
+  padding: 10px;
+  text-align: center;
+  background-color: #FC8500;
+}
+.fondo{
+  padding: 10px;
+  display: relative;
+  height: 89.5%;
+  background-color: #f5a76b !important;
+}

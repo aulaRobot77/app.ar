@@ -1,0 +1,36 @@
+<!--que pasa cuando se cambia de grupo un alumno?-->
+<h2>Asistencia Anual</h2>
+<b>Seleccione un grupo: </b>
+<label for="">Dia:</label>
+<input type="text" name="dia" value="">
+<label for="">Hora:</label>
+<input type="text" name="hora" value="">
+<input type="submit" value="Buscar">
+<div>
+  <p>
+    <b>Grupo:</b>
+    {{asistencia.grupo}}
+  </p>
+  <p>
+    <b>Instructor:</b>
+    {{asistencia.instructor}}
+  </p>
+  <table border="1" align="left">
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col" *ngFor="let p of partes">{{p.fecha}}</th>
+    </tr>
+
+
+        <tr *ngFor="let a of partes[0].listado_alumnos;let j=index">
+        <td>{{a.alumno.nombre}}</td>
+
+          <td *ngFor="let p2 of partes;let k=index">
+            {{p2.listado_alumnos[j].asistencia}}
+          </td>
+
+      </tr>
+
+
+  </table>
+</div>

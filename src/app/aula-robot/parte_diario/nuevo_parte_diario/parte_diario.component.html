@@ -1,0 +1,127 @@
+
+<div id ="content" class="col-lg-10 col-lg-offset-1">
+  <h2>Parte Diario</h2>
+  <form #formParteDiario="ngForm" (ngSubmit)="onSubmit();">
+    <p>
+      <label> Grupo: </label>
+      <!--input type = "text" name = "grupo" #grupo = "ngModel" [(ngModel)]="parte_diario.grupo" required pattern="[a-zA-Z]+"-->
+      <select name="grupo" class="sel" #grupo = "ngModel" [(ngModel)]="parte_diario.grupo" required>
+         <option value="">-- Seleccione --</option>
+         <option *ngFor="let g of grupos" value= "{{g._id}}"> {{g.nombre}} </option>
+      </select>
+
+      <!--span *ngIf="grupo.touched && !grupo.valid"> </span-->
+      <label> Fecha: </label>
+      <input type = "date" name = "fecha" #fecha = "ngModel" [(ngModel)]="parte_diario.fecha" required>
+      <!--span *ngIf="fecha.touched && !fecha.valid"> fecha incorrect</span-->
+    </p>
+
+    <p>
+      <label> Instructor/a: </label>
+      <select name = "instructores" class="sel" #instructores = "ngModel" [(ngModel)]="parte_diario.instructores" required>
+         <option value="">-- Seleccione --</option>
+         <option *ngFor="let i of todosInstructores" value="{{i}}"> {{i}} </option>
+      </select>
+      <span *ngIf="fecha.touched && !fecha.valid"> Instructor es incorrecto</span>
+
+      <label> Horario: </label>
+      <input type = "time" name = "horario" #horario = "ngModel" [(ngModel)]="parte_diario.horario" required>
+      <!--span *ngIf="horario.touched && !horario.valid"> horario incorrecto</span-->
+    </p>
+
+    <input type="submit" class= "btn btn-default" value="Guardar" [disabled]="!formParteDiario.form.valid">
+  </form>
+</div> <!--/div>
+
+<div class="col-lg-10 col-lg-offset-2"-->
+<div class="col-lg-10 col-lg-offset-2">
+  <h3>Listado de alumnos:</h3>
+  <table class="lista">
+    <tr>
+      <th> N° </th>
+      <th> Nombre y Apellido </th>
+      <th> Tipo de Asistencia </th>
+    </tr>
+    <tr  *ngFor="let a of parte_diario.listado_alumnos;let i=index" tabindex="100">
+      <td> {{i+1}} </td>
+      <td>  <!-- denería cargar los alumnos para ese grupo-->
+       {{a.alumno.nombre}} {{a.alumno.apellido}}
+      </td>
+      <td>
+        <select name="asistencia"  class = "select_asist" #asistencia = "ngModel" [(ngModel)] = "a.asistencia">
+           <option value="">--- Seleccione ---</option>
+           <OPTION value= "c/a"> Ausente con aviso </OPTION>
+           <OPTION value= "s/a"> Ausente sin aviso </OPTION>
+           <OPTION value= "a/t"> Ausente aviso tarde</OPTION>
+           <OPTION value= "p"> Presente </OPTION>
+           <OPTION value= "p/m"> Presente en muestra</OPTION>
+        </select>
+      </td>
+    </tr>
+  </table>
+
+  <h3> Alumnos que recuperan: </h3>
+<div *ngIf="parte_diario.listado_recuperan.length>0; else elseVacio">
+  <table class="lista" style="full-width:900px">
+    <tr>
+      <th> N° </th>
+      <th> Nombre y Apellido </th>
+      <th> Tipo de Asistencia </th>
+      <th> Fecha Ausencia </th>
+      <th> Grupo </th>
+    </tr>
+    <tr *ngFor="let a of parte_diario.listado_recuperan;let i=index" tabindex="100">  <!-- debería cargar los alumnos para ese grupo-->
+      <td> {{i+1}} </td>
+      <td>{{a.alumno.nombre}} {{a.alumno.apellido}}</td>
+      <td>
+        <select name="recuperan"  class = "select_asist" #asistencia = "ngModel" [(ngModel)] = "a.asistencia">
+         <option value="">--- Seleccione ---</option>
+         <OPTION value= "c/a"> Ausente con aviso </OPTION>
+         <OPTION value= "s/a"> Ausente sin aviso </OPTION>
+         <OPTION value= "a/t"> Ausente aviso tarde</OPTION>
+         <OPTION value= "p"> Presente </OPTION>
+         <OPTION value= "p/m"> Presente en muestra</OPTION>
+        </select>
+      </td>
+      <td class="data-target">28/08/2018</td>
+      <td>Grupo {{i}}</td>
+      <td style="padding:0px;margin:0;width:38px"> <button type="button" name="eliminar" class="btn btn-warning" (click)="eliminar_recuperan(i)">
+        <span class ="glyphicon glyphicon-remove"></span>
+      </button>
+      </td>
+    </tr>
+  </table>
+    <!-- Botón para agregar alumnos -->
+    <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bs-example-modal-lg"> Agregar alumno </button>
+  </div>
+  <ng-template #elseVacio>
+    <div style="text-align:center">
+      <br>
+      <b> No hay alumnos cargados... </b>
+      <br>
+      <br>
+      <!-- Botón para agregar alumnos -->
+    <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bs-example-modal-lg"> Agregar alumno </button>
+    </div>
+  </ng-template>
+</div>
+
+  <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+      <p> </p>
+      <p>  Ver listado de alumnos ... </p>
+        <ol>
+          <li *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11,12]">
+            Alumno {{i}}
+            <button type="button" class="btn btn-sm btn-success" (click)="elegirAlumno(i)" data-dismiss="modal">
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"> Seleccionar </span>
+            </button>
+          </li>
+      </ol>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>

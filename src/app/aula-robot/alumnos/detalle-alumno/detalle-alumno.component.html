@@ -1,0 +1,162 @@
+<div>
+  <h2 class="titulo">
+    Detalle del Alumno
+  </h2>
+</div>
+<div>
+  <br>
+  <div class="fondo-form col-md-10 col-md-offset-1">
+    <form class="" #formAlumno="ngForm">
+      <p class="titulo-seccion">
+        Datos Personales
+        <span *ngIf="miniDatos" (click)="miniDatos=!miniDatos" class="glyphicon glyphicon-plus pull-right"></span>
+        <span *ngIf="!miniDatos" (click)="miniDatos=!miniDatos" class="glyphicon glyphicon-minus pull-right"></span>
+      </p>
+      <div *ngIf="!miniDatos" class="form-group col-md-6">
+        <label>DNI</label>
+        <p class="detalle-form">{{alumno.dni}}</p>
+      </div>
+      <div *ngIf="!miniDatos" class="form-group col-md-6">
+        <label>Fecha de Nacimiento</label>
+        <p class="detalle-form">{{alumno.fechaNacimiento | date:'dd-MM-yyyy'}}</p>
+      </div>
+      <div *ngIf="!miniDatos" class="form-group col-md-6">
+        <label>Nombre</label>
+        <p class="detalle-form">{{alumno.nombre}}</p>
+      </div>
+      <div *ngIf="!miniDatos" class="form-group col-md-6">
+        <label>Apellido</label>
+        <p class="detalle-form">{{alumno.apellido}}</p>
+      </div>
+      <div *ngIf="!miniDatos" class="form-group col-md-12">
+        <label>Domicilio</label>
+        <p class="detalle-form">{{alumno.domicilio}}</p>
+      </div>
+      <div *ngIf="!miniDatos" class="form-group col-md-8">
+        <label>Escuela a la que Asiste</label>
+        <p class="detalle-form">{{alumno.escuela}}</p>
+      </div>
+      <div *ngIf="!miniDatos" class="form-group col-md-4">
+        <label>Grado</label>
+        <p class="detalle-form">{{alumno.grado}}</p>
+      </div>
+      <div *ngIf="!miniDatos" class="form-group col-md-12">
+        <label>Horario Escolar</label>
+        <p class="detalle-form">{{alumno.horarioEscolar}}</p>
+      </div>
+      <div *ngIf="!miniDatos" class="form-group col-md-12 separador">
+        <label>Horarios Libres</label>
+        <div class="detalle-form columns">
+          <p *ngFor="let h of alumno.horariosLibres">
+            {{h.dia}} de {{h.horaI}}hs. a {{h.horaF}}hs.
+          </p>
+        </div>
+      </div>
+      <p class="titulo-seccion">
+        Datos de los Padres
+        <span *ngIf="miniPadres" (click)="miniPadres=!miniPadres" class="glyphicon glyphicon-plus pull-right"></span>
+        <span *ngIf="!miniPadres" (click)="miniPadres=!miniPadres" class="glyphicon glyphicon-minus pull-right"></span>
+      </p>
+      <div *ngIf="!miniPadres" class="form-group col-md-8">
+        <label>Nombre de la Madre</label>
+        <p class="detalle-form">{{alumno.nombreMadre}}</p>
+      </div>
+      <div *ngIf="!miniPadres" class="form-group col-md-4">
+        <label>Tel/Cel de la Madre</label>
+        <p class="detalle-form">{{alumno.telMadre}}</p>
+      </div>
+      <div *ngIf="!miniPadres" class="form-group col-md-6">
+        <label>Email de la Madre</label>
+        <p class="detalle-form">{{alumno.emailMadre}}</p>
+      </div>
+      <div *ngIf="!miniPadres" class="form-group col-md-6">
+        <label>Profesión y Ocupación de la Madre</label>
+        <p class="detalle-form">{{alumno.profesionMadre}}</p>
+      </div>
+      <div *ngIf="!miniPadres" class="form-group col-md-8">
+        <label>Nombre del Padre</label>
+        <p class="detalle-form">{{alumno.nombrePadre}}</p>
+      </div>
+      <div *ngIf="!miniPadres" class="form-group col-md-4">
+        <label>Tel/Cel del Padre</label>
+        <p class="detalle-form">{{alumno.telPadre}}</p>
+      </div>
+      <div *ngIf="!miniPadres" class="form-group col-md-6">
+        <label>Email del Padre</label>
+        <p class="detalle-form">{{alumno.emailPadre}}</p>
+      </div>
+      <div *ngIf="!miniPadres" class="form-group col-md-6 separador">
+        <label>Profesión y Ocupación del Padre</label>
+        <p class="detalle-form">{{alumno.profesionPadre}}</p>
+      </div>
+      <p class="titulo-seccion">
+        Otros Datos de Contacto
+        <span *ngIf="miniOtros" (click)="miniOtros=!miniOtros" class="glyphicon glyphicon-plus pull-right"></span>
+        <span *ngIf="!miniOtros" (click)="miniOtros=!miniOtros" class="glyphicon glyphicon-minus pull-right"></span>
+      </p>
+      <div *ngIf="!miniOtros" class="form-group col-md-12">
+        <label>Otros Teléfonos de Emergencia</label>
+        <p class="detalle-form">{{alumno.telefonos}}</p>
+      </div>
+      <div *ngIf="!miniOtros" class="form-group col-md-12">
+        <label>Acotaciones de la Familia</label>
+        <p class="detalle-form">{{alumno.acotaciones}}</p>
+      </div>
+      <div *ngIf="!miniOtros" class="form-group col-md-12">
+        <label>Observaciones</label>
+        <p class="detalle-form">{{alumno.observaciones}}</p>
+      </div>
+      <p class="titulo-seccion">
+        Datos de Cursado
+        <span *ngIf="miniAula" (click)="miniAula=!miniAula" class="glyphicon glyphicon-plus pull-right"></span>
+        <span *ngIf="!miniAula" (click)="miniAula=!miniAula" class="glyphicon glyphicon-minus pull-right"></span>
+      </p>
+      <div *ngIf="!miniAula" class="form-group col-md-12">
+        <label>Grupo Actual</label>
+        <p *ngIf="alumno.grupo" class="detalle-form"><strong>{{alumno.grupo.nombre}}</strong> - Día: {{alumno.grupo.dia_semana}} - Hora: {{alumno.grupo.hora_inicio}}</p>
+        <div *ngIf="!alumno.grupo" class="col-md-12">
+          <i> El alumno no está inscripto a ningún grupo actualmente.</i>
+        </div>
+      </div>
+      <div *ngIf="!miniAula" class="form-group col-md-4">
+        <label>Fecha Ingreso</label>
+        <p class="detalle-form">{{alumno.fechaIngreso | date:'dd-MM-yyyy'}}</p>
+      </div>
+      <div *ngIf="!miniAula" class="form-group col-md-4 col-md-offset-2">
+        <label>Fecha Finalización</label>
+        <p class="detalle-form">{{alumno.fechaFinalizacion | date:'dd-MM-yyyy'}}</p>
+      </div>
+      <div *ngIf="!miniAula" class="form-group col-md-12">
+        <label>Niveles</label>
+        <br>
+        <div class="table-responsive col-md-12">
+          <i *ngIf="alumno.niveles.length == 0"> El alumno no cursó ningún nivel hasta el momento.</i>
+          <table *ngIf="alumno.niveles.length != 0" id="tNivelesVer" class="table text-center">
+            <thead class="thead-default">
+              <tr>
+                <th *ngFor="let n of alumno.niveles" class="text-center">
+                  {{n.nivel}}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <td *ngFor="let m of alumno.niveles">
+                <p [style.color]="m.estado == 'Completo' ? 'green' : m.estado == 'Incompleto' ? 'red' : 'black'">
+                  {{m.estado}}
+                </p>
+                <p>
+                  Año: {{m.anio}}
+                </p>
+              </td>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="separador"></div>
+      <div class="text-right col-md-12">
+        <button type="button" class="btn btn-primary" [routerLink]="['/main-panel/editar-alumno/'+id]">Editar</button>
+        <button type="button" class="btn btn-danger" [routerLink]="['/main-panel/ver-alumnos']">Atrás</button>
+      </div>
+    </form>
+  </div>
+</div>

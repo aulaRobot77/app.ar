@@ -1,0 +1,89 @@
+<div id="todo" [@fadeLeft]>
+  <div>
+    <h2 class="titulo">
+      Listado de Alumnos
+    </h2>
+    <p id="parrafo">
+      A continuación podrá ver una lista con todos los alumnos registrados en el sistema.
+    </p>
+  </div>
+  <div class="fondo text-center" *ngIf="alumnos.length == 0"><i>No existen alumnos registrados en el sistema hasta el momento.</i></div>
+  <div class="fondo" *ngIf="alumnos.length != 0">
+    <div class="row">
+      <div class="col-md-12">Buscar:
+        <input type="text" [(ngModel)]="busqueda" class="separador-h">
+        Filtro:
+        <select class="btn btn-default" [(ngModel)]="datoB">
+          <option value="all">-- Seleccione --</option>
+          <option value="dni">DNI</option>
+          <option value="nombre" selected>Nombre</option>
+          <option value="apellido">Apellido</option>
+          <option value="estado">Estado</option>
+        </select>
+        <br><br>
+        <div *ngIf="busqueda" class="label label-default">
+          Termino de búsqueda: {{busqueda}}
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="table-responsive">
+      <table class="table table-hover text-center">
+        <thead class="thead-default">
+          <tr>
+            <th role="button" (click)="ordenar('dni')" class="text-center">DNI
+              <span *ngIf="tipo == 'dni' && desc" class="fa fa-caret-down"></span>
+              <span *ngIf="tipo == 'dni' && !desc" class="fa fa-caret-up"></span>
+            </th>
+            <th role="button" (click)="ordenar('nombre')" class="text-center">Nombre
+              <span *ngIf="tipo == 'nombre' && desc" class="fa fa-caret-down"></span>
+              <span *ngIf="tipo == 'nombre' && !desc" class="fa fa-caret-up"></span>
+            </th>
+            <th role="button" (click)="ordenar('apellido')" class="text-center">Apellido
+              <span *ngIf="tipo == 'apellido' && desc" class="fa fa-caret-down"></span>
+              <span *ngIf="tipo == 'apellido' && !desc" class="fa fa-caret-up"></span>
+            </th>
+            <th role="button" (click)="ordenar('estado')" class="text-center">Estado
+              <span *ngIf="tipo == 'estado' && desc" class="fa fa-caret-down"></span>
+              <span *ngIf="tipo == 'estado' && !desc" class="fa fa-caret-up"></span>
+            </th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i = index; let a of alumnos | buscar: busqueda:datoB">
+            <td>{{a.dni}}</td>
+            <td>{{a.nombre}}</td>
+            <td>{{a.apellido}}</td>
+            <td><span *ngIf="a.grupo">Activo</span><span *ngIf="!a.grupo">Inactivo</span></td>
+            <td class="text-center">
+              <a class="btn btn-success btn-sm" [routerLink]="['../detalle-alumno/'+a._id]"><span class="glyphicon glyphicon-eye-open"> </span> Ver</a>
+              <a class="btn btn-primary btn-sm" [routerLink]="['../editar-alumno/'+a._id]"><span class="glyphicon glyphicon-pencil"> </span> Editar</a>
+              <!-- <a href="#myModal-{{a.dni}}" role="button" class="btn btn-danger btn-sm" data-toggle="modal"><span class="glyphicon glyphicon-trash"> </span> Eliminar</a> -->
+
+              <!-- Modal para Eliminar Alumno-->
+              <div class="modal fade" id="myModal-{{a.dni}}" role="dialog" >
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">Eliminar Alumno</h4>
+                    </div>
+                    <div class="modal-body">
+                      ¿Realmente desea eliminar al Alumno <strong>{{a.nombre}} {{a.apellido}}</strong>?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                      <button type="button" class="btn btn-danger" (click)="eliminar(a.dni)" data-dismiss="modal">Eliminar Alumno</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
